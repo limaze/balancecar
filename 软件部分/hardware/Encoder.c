@@ -68,16 +68,16 @@ void Encoder2_Init(void)
 
 int16_t Get_Encoder1(void)
 {
-	int16_t temp;
-	temp=TIM_GetCounter(TIM3);
+	int temp;
+	temp=(short)TIM_GetCounter(TIM3);
 	TIM_SetCounter(TIM3,0);
 	return temp;
 }
 
 int16_t Get_Encoder2(void)
 {
-	int16_t temp;
-	temp=TIM_GetCounter(TIM4);
+	int temp;
+	temp=(short)TIM_GetCounter(TIM4);
 	TIM_SetCounter(TIM4,0);
 	return temp;
 }

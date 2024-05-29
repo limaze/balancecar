@@ -9,6 +9,8 @@
 #include "pid.h"
 #include "ENCODER.h"
 #include "Motor.h"
+#include "Key.h"
+#include "PWM.h"
 
 float Pitch,Roll,Yaw;								//俯仰角默认跟中值一样，翻滚角，偏航角
 int16_t ax,ay,az,gx,gy,gz;							//加速度，陀螺仪角速度
@@ -37,6 +39,8 @@ float zllilun,zlshiji;//直立环的理论值和实际值
 int sdlilun,sdshiji;//速度环的理论值和实际值
 int zxlilun,zxshiji;//转向环的理论值和实际值
 
+uint8_t keynum;
+
 int main(void)
 {
 	OLED_Init();
@@ -47,18 +51,20 @@ int main(void)
 	BUZZER_Init();
 	Encoder1_Init();
 	Encoder2_Init();
+	Motor_Init();
+	Ket_Init();
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);	
-	OLED_ShowString(1,1,"AD:");
-	OLED_ShowString(1,9,"V: .");
+	OLED_ShowString(1,1,"SPEED:");
 	while(1)
 	{
 		speed1=Get_Encoder1();
 		speed2=Get_Encoder2();
 		ad=AD_Read();
+//		GPIO_SetBits(GPIOA,GPIO_Pin_4);
+//		GPIO_ResetBits(GPIOA,GPIO_Pin_5);
+//		PWM_Setcompare2(5400);
 		dv=(float)ad/4095*3.3;
-		OLED_ShowNum(1,4,ad,4);
-		OLED_ShowNum(1,11,dv,1);
-		OLED_ShowNum(1,13,(uint16_t)(dv*100)%100,2);
+		OLED_ShowSignedNum(1,7,speed1,4);
 		OLED_ShowSignedNum(2, 1, Pitch, 5);
 		OLED_ShowSignedNum(3, 1, Roll, 5);
 		OLED_ShowSignedNum(4, 1, Yaw, 5);
@@ -76,7 +82,7 @@ void EXTI15_10_IRQHandler(void)
 	{
 		MPU6050_DMP_Get_Data(&Pitch,&Roll,&Yaw);				
 		MPU_Get_Gyroscope(&gx,&gy,&gz);
-		if(over_flag(Roll)==1){Motor_off();}
+//		if(over_flag(Roll)==1){Motor_off();}
 		zlshiji=Pitch;
 		zllilun=zhongzhi;
 		sdshiji=(Get_Encoder1()+Get_Encoder2())/2;
@@ -87,11 +93,11 @@ void EXTI15_10_IRQHandler(void)
 		pwm2_out=pwm_out-pwm_zhuan;
 		pwxianfu(7000,&pwm1_out);
 		pwxianfu(7000,&pwm2_out);
-		if(power_flag==0)
-		{
+////		if(power_flag==0)
+////		{
 			SETPWM_l(pwm1_out);
 			SETPWM_r(pwm2_out);
-		}
+////		}
 		EXTI_ClearITPendingBit(EXTI_Line13);
 	}
 }

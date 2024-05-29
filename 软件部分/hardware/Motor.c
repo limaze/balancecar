@@ -1,4 +1,5 @@
 #include "stm32f10x.h"                  // Device header
+
 #include "PWM.h"
 
 void Motor_Init(void)
@@ -54,11 +55,11 @@ void SETPWM_l(int pw)
 	if(pw>0)
 	{
 		left_z();
-		PWM_Setcompare1(7200-pw);
+		PWM_Setcompare2(pw);
 	}
 	else{
 		left_f();
-		PWM_Setcompare1(7200-(-pw));
+		PWM_Setcompare2(-pw);
 	}
 }
 
@@ -67,11 +68,11 @@ void SETPWM_r(int pw)
 	if(pw>0)
 	{
 		right_z();
-		PWM_Setcompare4(pw);
+		PWM_Setcompare3(pw);
 	}
 	else{
 		right_f();
-		PWM_Setcompare4(-pw);
+		PWM_Setcompare3(-pw);
 	}
 }
 

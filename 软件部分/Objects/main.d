@@ -47,3 +47,5 @@
 .\objects\main.o: .\hardware\pid.h
 .\objects\main.o: .\hardware\ENCODER.h
 .\objects\main.o: .\hardware\Motor.h
+.\objects\main.o: .\hardware\Key.h
+.\objects\main.o: .\hardware\PWM.h
