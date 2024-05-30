@@ -27,10 +27,14 @@ Project File Date:  05/25/2024
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'D:\keil\ARM\ARMCC\Bin'
 Build target 'Target 1'
-compiling Encoder.c...
+compiling Motor.c...
+compiling main.c...
+user\main.c(71): warning:  #177-D: variable "pwm_zhuan"  was declared but never referenced
+  	int pwm_out,pwm_zhuan,pwm1_out,pwm2_out;
+user\main.c: 1 warning, 0 errors
 linking...
-Program Size: Code=25238 RO-data=5178 RW-data=212 ZI-data=1652  
-".\Objects\project.axf" - 0 Error(s), 0 Warning(s).
+Program Size: Code=24186 RO-data=5174 RW-data=200 ZI-data=1648  
+".\Objects\project.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -43,7 +47,7 @@ Package Vendor: Keil
   D:/keil/ARM/PACK/Keil/STM32F1xx_DFP/2.2.0/Device/Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

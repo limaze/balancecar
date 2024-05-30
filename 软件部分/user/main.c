@@ -4,7 +4,6 @@
 #include "MPU6050.h"
 #include "inv_mpu.h"
 #include "EXTI.h"
-#include "AD.h"
 #include "BUZZER.h"
 #include "pid.h"
 #include "ENCODER.h"
@@ -29,9 +28,6 @@ float VKp=+190,VKi=0.95;
 //转向环参数
 float TKp=0,TKd=0;
 
-uint32_t a;
-uint16_t ad;
-float dv;
 int16_t speed1,speed2;//编码器1和2的速度
 float zhongzhi=0;//理论小车平衡时的角度
 
@@ -47,7 +43,6 @@ int main(void)
 	MPU6050_Init();
 	MPU6050_DMP_Init();
 	EXTI1_Init();
-	AD_Init();
 	BUZZER_Init();
 	Encoder1_Init();
 	Encoder2_Init();
@@ -59,12 +54,8 @@ int main(void)
 	{
 		speed1=Get_Encoder1();
 		speed2=Get_Encoder2();
-		ad=AD_Read();
-//		GPIO_SetBits(GPIOA,GPIO_Pin_4);
-//		GPIO_ResetBits(GPIOA,GPIO_Pin_5);
-//		PWM_Setcompare2(5400);
-		dv=(float)ad/4095*3.3;
 		OLED_ShowSignedNum(1,7,speed1,4);
+		OLED_ShowSignedNum(1,12,speed2,4);
 		OLED_ShowSignedNum(2, 1, Pitch, 5);
 		OLED_ShowSignedNum(3, 1, Roll, 5);
 		OLED_ShowSignedNum(4, 1, Yaw, 5);
@@ -83,31 +74,21 @@ void EXTI15_10_IRQHandler(void)
 		MPU6050_DMP_Get_Data(&Pitch,&Roll,&Yaw);				
 		MPU_Get_Gyroscope(&gx,&gy,&gz);
 //		if(over_flag(Roll)==1){Motor_off();}
-		zlshiji=Pitch;
+		zlshiji=Roll;
 		zllilun=zhongzhi;
 		sdshiji=(Get_Encoder1()+Get_Encoder2())/2;
 		sdlilun=0;
 		pwm_out=zhilihuan(zllilun,zlshiji)+suduhuan(sdlilun,sdshiji);
-		pwm_zhuan=zhuanxianghuan(zxlilun,zxshiji);
-		pwm1_out=pwm_out+pwm_zhuan;
-		pwm2_out=pwm_out-pwm_zhuan;
+//		pwm_zhuan=zhuanxianghuan(zxlilun,zxshiji);
+		pwm1_out=pwm_out;
+		pwm2_out=pwm_out;
 		pwxianfu(7000,&pwm1_out);
 		pwxianfu(7000,&pwm2_out);
-////		if(power_flag==0)
-////		{
+//		if(power_flag==0)
+//		{
 			SETPWM_l(pwm1_out);
 			SETPWM_r(pwm2_out);
-////		}
+//		}
 		EXTI_ClearITPendingBit(EXTI_Line13);
-	}
-}
-
-void ADC1_2_IRQHandler(void)
-{
-	if(ADC_GetFlagStatus(ADC1,ADC_FLAG_AWD)==SET)
-	{
-		BUZZER_on();
-		power_flag=1;
-		ADC_ClearFlag(ADC1,ADC_FLAG_AWD);
 	}
 }

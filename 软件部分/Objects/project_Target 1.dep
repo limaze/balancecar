@@ -1061,7 +1061,7 @@ I (.\library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\library\misc.h)(0x4D783BB4)
 F (.\hardware\Encoder.h)(0x6653367C)()
-F (.\hardware\Motor.c)(0x665731C0)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\start -I .\user -I .\library -I .\system -I .\hardware -I .\hardware\Mpu6050-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\motor.o --omf_browse .\objects\motor.crf --depend .\objects\motor.d)
+F (.\hardware\Motor.c)(0x665843A1)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\start -I .\user -I .\library -I .\system -I .\hardware -I .\hardware\Mpu6050-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\motor.o --omf_browse .\objects\motor.crf --depend .\objects\motor.d)
 I (.\start\stm32f10x.h)(0x4D783CB4)
 I (.\start\core_cm3.h)(0x4D523B58)
 I (D:\keil\ARM\ARMCC\include\stdint.h)(0x588B8344)
@@ -1213,7 +1213,7 @@ I (.\library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\library\misc.h)(0x4D783BB4)
 F (.\hardware\BUZZER.h)(0x6613F003)()
-F (.\user\main.c)(0x665731C0)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\start -I .\user -I .\library -I .\system -I .\hardware -I .\hardware\Mpu6050-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\user\main.c)(0x665843A1)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\start -I .\user -I .\library -I .\system -I .\hardware -I .\hardware\Mpu6050-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (.\start\stm32f10x.h)(0x4D783CB4)
 I (.\start\core_cm3.h)(0x4D523B58)
 I (D:\keil\ARM\ARMCC\include\stdint.h)(0x588B8344)
@@ -1256,7 +1256,6 @@ I (D:\keil\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 I (.\hardware\Mpu6050\MPU6050_I2C.h)(0x665053E0)
 I (.\hardware\Mpu6050\inv_mpu.h)(0x665053DE)
 I (.\system\EXTI.h)(0x66506986)
-I (.\hardware\AD.h)(0x66139EFD)
 I (.\hardware\BUZZER.h)(0x6613F003)
 I (.\hardware\pid.h)(0x6653E6F5)
 I (.\hardware\ENCODER.h)(0x6653367C)
