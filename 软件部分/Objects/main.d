@@ -42,9 +42,9 @@
 .\objects\main.o: .\hardware\Mpu6050\MPU6050_I2C.h
 .\objects\main.o: .\hardware\Mpu6050\inv_mpu.h
 .\objects\main.o: .\system\EXTI.h
-.\objects\main.o: .\hardware\BUZZER.h
 .\objects\main.o: .\hardware\pid.h
 .\objects\main.o: .\hardware\ENCODER.h
 .\objects\main.o: .\hardware\Motor.h
 .\objects\main.o: .\hardware\Key.h
 .\objects\main.o: .\hardware\PWM.h
+.\objects\main.o: .\hardware\BLUETOOTH.h

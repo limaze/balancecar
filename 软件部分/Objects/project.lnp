@@ -38,7 +38,6 @@
 ".\objects\motor.o"
 ".\objects\pwm.o"
 ".\objects\pid.o"
-".\objects\ad.o"
 ".\objects\buzzer.o"
 ".\objects\main.o"
 ".\objects\stm32f10x_it.o"
