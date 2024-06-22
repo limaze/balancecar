@@ -20,19 +20,27 @@ u8 MPU_Get_Accelerometer(short *ax,short *ay,short *az);
 uint8_t power_flag=0;
 
 //直立环参数:
-float Kp=-270,Ki=0,Kd=-780; 
+float Kp=-300,Ki=0,Kd=-780; 
 
 //速度环参数:
-float VKp=-220,VKi=-1.1; 
+float VKp=-260,VKi=-1.3; 
+
+//加速度环参数:
+float AKp=-0.008,AKi=-0.002; 
+
+//角速度环参数:
+float JKp=15,JKi=0.02; 
 
 //转向环参数
 float TKp=30,TKd=6;
 
 int16_t speed1,speed2;//编码器1和2的速度
-float zhongzhi=-2.7;//理论小车平衡时的角度
+float zhongzhi=0;//理论小车平衡时的角度
 
 float zllilun,zlshiji;//直立环的理论值和实际值
 int sdlilun,sdshiji;//速度环的理论值和实际值
+int jsdlilun=0,jsdshiji;//加速度环的理论值和实际值
+int dsdlilun=-10,dsdshiji;//角速度环的理论值和实际值
 int zxlilun=0,zxshiji=0;//转向环的理论值和实际值
 
 uint8_t keynum;
@@ -63,11 +71,11 @@ int main(void)
 		OLED_ShowSignedNum(4, 1, Yaw, 5);
 		OLED_ShowSignedNum(2, 8, gx, 5);
 		OLED_ShowSignedNum(3, 8, gy, 5);
-//		OLED_ShowSignedNum(4, 8, gz, 5);
+		OLED_ShowSignedNum(4, 8, gz, 5);
 		if(Get_BluetBZ()==1)
 		{
 			blsj=Get_BluetSJ();
-			OLED_ShowSignedNum(4, 8, blsj, 5);
+//			OLED_ShowSignedNum(4, 8, blsj, 5);
 			switch(blsj)
 			{
 				case 0:sdlilun=0;
@@ -90,17 +98,19 @@ int main(void)
 
 void EXTI15_10_IRQHandler(void)
 {
-	int pwm_out,pwm_zhuan,pwm1_out,pwm2_out;
+	int pwm_out,pwm_zhuan=0,pwm1_out,pwm2_out;
 	if(EXTI_GetITStatus(EXTI_Line13)==SET)
 	{
 		MPU6050_DMP_Get_Data(&Pitch,&Roll,&Yaw);				
 		MPU_Get_Gyroscope(&gx,&gy,&gz);
-//		if(over_flag(Roll)==1){Motor_off();}
+		MPU_Get_Accelerometer(&ax,&ay,&az);
+		if(over_flag(Roll)==1){Motor_off();}
 		zlshiji=Roll;
 		zllilun=zhongzhi;
 		sdshiji=(Get_Encoder1()+Get_Encoder2())/2;
+		jsdshiji=ay;
 		zxshiji=Yaw;
-		pwm_out=zhilihuan(zllilun,zlshiji)+suduhuan(sdlilun,sdshiji);
+		pwm_out=zhilihuan(zllilun,zlshiji)+suduhuan(sdlilun,sdshiji)+jsuduhuan(jsdlilun,jsdshiji)+dsuduhuan(dsdlilun,dsdshiji);
 		pwm_zhuan=zhuanxianghuan(zxlilun,zxshiji);
 		pwm1_out=pwm_out+pwm_zhuan;
 		pwm2_out=pwm_out-pwm_zhuan;
