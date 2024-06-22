@@ -20,10 +20,10 @@ u8 MPU_Get_Accelerometer(short *ax,short *ay,short *az);
 uint8_t power_flag=0;
 
 //直立环参数:
-float Kp=-300,Ki=0,Kd=-780; 
+float Kp=-300,Ki=-0.01,Kd=-840; 
 
 //速度环参数:
-float VKp=-260,VKi=-1.3; 
+float VKp=-280,VKi=-1.4; 
 
 //加速度环参数:
 float AKp=-0.008,AKi=-0.002; 
